@@ -1,6 +1,29 @@
-* logging
+# Current tasks
 
-* memos
+* Refactor existing code
+* Easy configuration and deployment
 
-* links
+# Proposed features
 
+* Logging
+
+  - e.g. "prosurfer: !log <message>" should be appended to a file
+    somewhere. Maybe a JSON file with the related metadata as well.
+
+* Memos
+
+  - Memos that are displayed when someone comes online or when someone
+    speaks.
+
+* Links
+
+  - General link recommendations
+    e.g. "prosurfer: !link htbah"
+
+  - Documentation/Reference lookup
+    e.g. "prosurfer: !doc loop"
+
+* users
+  - "last seen <username>"
+
+* Other features that will come in handy while programming.
