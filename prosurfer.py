@@ -6,24 +6,35 @@ import irc.bot
 import mods
 
 default_config = {
-    'nickname': 'prosurfer',
-    'channel' : '#lean-bots',
-    'server' : 'irc.oftc.net',
-    'port' : '6667',
-    'nickname' : 'prosurfer',
-    'username' : 'ProSurfer 4.3'
-    }
+  # IRC Server/Channel configs
+  'nickname'         : 'prosurfer',
+  'channel'          : '#lean-bots',
+  'server'           : 'irc.oftc.net',
+  'port'             : '6667',
+  'nickname'         : 'prosurfer',
+  'username'         : 'ProSurfer 4.3',
+
+  # User config
+  'bot_command_char' : '`'
+}
 
 class ProSurfer(irc.bot.SingleServerIRCBot):
   def __init__(self, config):
+
     self.config = ConfigParser(default_config)
     self.config.read(config)
-    self.hooks = { 'pubmsg': [], 'privmsg': [], 'join': [], 'part': [],
-        'topic': [], 'chanmode': [], }
+    self.hooks = {
+      'pubmsg'   : [],
+      'privmsg'  : [],
+      'join'     : [],
+      'part'     : [],
+      'topic'    : [],
+      'chanmode' : [],
+    }
 
     irc.bot.SingleServerIRCBot.__init__(self,
-        [(self.config.get('DEFAULT', 'server'), int(self.config.get('DEFAULT', 'port')))],
-        self.config.get('DEFAULT', 'nickname'), self.config.get('DEFAULT', 'username'))
+                                        [(self.config.get('DEFAULT', 'server'), int(self.config.get('DEFAULT', 'port')))],
+                                        self.config.get('DEFAULT', 'nickname'), self.config.get('DEFAULT', 'username'))
 
     map(self._register_mod, self.config.get('DEFAULT', 'mods').split(','))
 
