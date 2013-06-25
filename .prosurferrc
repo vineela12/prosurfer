@@ -1,8 +1,0 @@
-[DEFAULT]
-modules=logger
-
-[shared]
-prompt=`
-
-[logger]
-logfile=prosurfer.log
