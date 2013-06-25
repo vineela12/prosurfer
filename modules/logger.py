@@ -1,6 +1,6 @@
-import __init__ as mods
+import __init__ as modules
 
-class LoggerMod(mods.Mod):
+class LoggerModule(modules.Module):
   hooks = [('pubcmd', 'log')]
 
   def log(self, message):
@@ -10,4 +10,4 @@ class LoggerMod(mods.Mod):
   def pubcmd(self, sender, message):
     self.log(sender + ' ' + message + '\n')
 
-Mod = LoggerMod
+Module = LoggerModule

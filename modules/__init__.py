@@ -1,8 +1,8 @@
-class Mod:
+class Module:
   """
   Set class/instance variable hooks to register for events. The following hooks
   are available...
-  
+
   * pubmsg    - Triggered when a public message is received
   * privmsg   - Triggered when a private message is received
   * join      - Someone /joins the channel

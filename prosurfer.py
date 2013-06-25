@@ -6,41 +6,27 @@ from importlib import import_module
 import irc.bot
 
 from util import Struct
-import mods
-
-default_config = {
-    'nickname': 'prosurfer',
-    'channel' : '#lean-bots',
-    'server' : 'irc.oftc.net',
-    'port' : '6667',
-    'nickname' : 'prosurfer',
-    'username' : 'ProSurfer 4.3',
-    'prompt' : '`',
-    'mods' : '',
-    }
+import modules
 
 class ProSurfer(irc.bot.SingleServerIRCBot):
   def __init__(self, config):
-    """
-    Read a configuration file and start the bot.
-    """
 
-    self.config = Struct(config)
-
-    hooks = ['pubmsg', 'privmsg', 'join', 'part', 'topic', 'chanmode']
-    self.hooks = dict(map(lambda hook: (hook, []), hooks))
-    self.hooks['pubcmd'] = {}
-    # create a dict of hook-type => [hooks]
-    # 
-    # each hook in the hooks list will be called with data when a hook-type
-    # message is received.
+    self.config = Struct(config) 
+    self.hooks = {
+      'pubcmd'   : {},
+      'pubmsg'   : [],
+      'privmsg'  : [],
+      'join'     : [],
+      'part'     : [],
+      'topic'    : [],
+      'chanmode' : [],
+    }
 
     super(ProSurfer, self).__init__(
         [(self.config.server, int(self.config.port))],
         self.config.nickname, self.config.username)
 
-    # Register all the mods
-    map(self._register_mod, self.config.mods.split(','))
+    map(self._register_module, self.config.mods.split(','))
 
     self.channel = self.config.channel
 
@@ -58,11 +44,11 @@ class ProSurfer(irc.bot.SingleServerIRCBot):
     else:
       map(lambda hook: hook(event), self.hooks['pubmsg'])
 
-  def _register_mod(self, mod):
-    self.register_mod(import_module('mods.' + mod), self.config)
+  def _register_module(self, module):
+    self.register_module(import_module('modules.' + module), self.config)
 
-  def register_mod(self, mod, config):
-    md = mod.Mod(config)
+  def register_module(self, module, config):
+    md = module.Module(config)
     simple_hooks = filter(lambda hook: type(hook) == str, md.hooks)
     args_hooks = filter(lambda hook: type(hook) == tuple, md.hooks)
 
