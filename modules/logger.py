@@ -1,6 +1,6 @@
-import __init__ as mods
+import __init__ as modules
 
-class LoggerMod(mods.Mod):
+class LoggerModule(modules.Module):
   hooks = ['pubmsg']
 
   def log(self, message):
@@ -11,4 +11,4 @@ class LoggerMod(mods.Mod):
     if(event.arguments[0].startswith('`log ')):
       self.log(event.source + ' ' + event.arguments[0][5:] + '\n')
 
-Mod = LoggerMod
+Module = LoggerModule
