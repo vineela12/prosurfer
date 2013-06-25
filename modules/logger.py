@@ -7,7 +7,7 @@ class LoggerModule(modules.Module):
     with file(self.config.logger_logfile, 'a') as logfile:
       logfile.write(message)
 
-  def pubcmd(self, sender, message):
-    self.log(sender + ' ' + message + '\n')
+  def pubcmd(self, source, message):
+    self.log(source + ' ' + message + '\n')
 
 Module = LoggerModule

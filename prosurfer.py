@@ -40,7 +40,7 @@ class ProSurfer(irc.bot.SingleServerIRCBot):
       prompt_length = len(self.config.prompt)
       command = message[prompt_length:message.find(' ', prompt_length)]
 
-      self.hooks['pubcmd'][command]('sender', message[prompt_length+len(command):])
+      self.hooks['pubcmd'][command](event.source, message[prompt_length+len(command):])
     else:
       map(lambda hook: hook(event), self.hooks['pubmsg'])
 
