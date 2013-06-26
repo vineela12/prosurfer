@@ -1,11 +1,11 @@
 import sys
 
-from ConfigParser import ConfigParser
 from importlib import import_module
 
 import irc.bot
 
 from util import Struct
+from config import config
 import modules
 
 class ProSurfer(irc.bot.SingleServerIRCBot):
@@ -57,3 +57,5 @@ class ProSurfer(irc.bot.SingleServerIRCBot):
     for hook in args_hooks:
       self.hooks[hook[0]][hook[1]] = getattr(md, hook[0])
 
+if __name__ == "__main__":
+  ProSurfer(config).start()
