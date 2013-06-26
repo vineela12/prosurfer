@@ -3,7 +3,8 @@ import __init__ as modules
 class LoggerModule(modules.Module):
   hooks = [('pubcmd', 'log')]
 
-  def __init__(self):
+  def __init__(self, config):
+    self.config = config
     self.logfile = open(self.config.logger_logfile, "a")
 
   def log(self, message):
