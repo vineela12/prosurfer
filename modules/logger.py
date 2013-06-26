@@ -3,8 +3,8 @@ import __init__ as modules
 class LoggerModule(modules.Module):
   hooks = [('pubcmd', 'log')]
 
-  def __init__(self, filename):
-    self.logfile = open(filename, "a")
+  def __init__(self):
+    self.logfile = open(self.config.logger_logfile, "a")
 
   def log(self, message):
     timestamp = time.strftime("[%H:%M:%S]", time.localtime(time.time()))
