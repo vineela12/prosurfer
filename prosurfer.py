@@ -38,9 +38,10 @@ class ProSurfer(irc.IRCClient):
 
     def on_pubmsg(self, conn, event):
         message = event.arguments[0]
+        prompt = self.factory.config.prompt
         # if it's a 'command'
-        if message.startswith(self.factory.config.prompt):
-            promptLength = len(self.factory.config.prompt)
+        if message.startswith():
+            promptLength = len(prompt)
             command = message[promptLength:message.find(' ', promptLength)]
 
             self.hooks['pubcmd'][command](event.source, message[promptLength + len(command):])
