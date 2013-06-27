@@ -1,4 +1,4 @@
-config = {
+defaultConfig = {
   'nickname'       : 'prosurfer',
   'channel'        : '#lean-bots',
   'server'         : 'irc.oftc.net',

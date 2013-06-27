@@ -6,7 +6,8 @@ from twisted.words.protocols import irc
 from twisted.internet import reactor, protocol
 
 from util import Struct
-from config import config
+from config import defaultConfig
+from userConfig import userConfig
 
 import modules
 
@@ -82,7 +83,13 @@ class ProSurferFactory(protocol.ClientFactory):
         reactor.stop()
 
 if __name__ == "__main__":
-    config = Struct(config)
+    # Updates the values of the appropriate keys in defaultConfig with
+    # the values from userConfig.
+    mergedConfig = defaultConfig.copy()
+    mergedConfig.update(userConfig)
+
+    config = Struct(mergedConfig)
     p = ProSurferFactory(config)
+
     reactor.connectTCP(config.server, 6667, p)
     reactor.run()
