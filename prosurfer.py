@@ -5,9 +5,15 @@ from importlib import import_module
 from twisted.words.protocols import irc
 from twisted.internet import reactor, protocol
 
+from os.path import exists
+
 from util import Struct
 from config import defaultConfig
-from userConfig import userConfig
+
+if exists('userConfig.py'):
+    from userConfig import userConfig
+else:
+    userConfig = {}
 
 import modules
 
